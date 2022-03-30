@@ -1,0 +1,52 @@
+<p>servers component</p>
+<label>User Name</label>
+<input type="text" class="form-control" [(ngModel)]="userName" />
+<p>{{ userName }}</p>
+
+<button
+  class="btn btn-primary"
+  [disabled]="userName === ''"
+  (click)="userName = ''"
+>
+  Reset User
+</button>
+
+<div></div>
+
+<label>server name</label>
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)" /> -->
+
+<input type="text" class="form-control" [(ngModel)]="serverName" />
+<!-- <p>{{ serverName }}</p> -->
+
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>
+  add server
+</button>
+<!-- <p>{{ serverCreationStatus }}</p> -->
+<p *ngIf="createServer; else noServer">
+  server was created. Name is {{ serverName }}
+</p>
+<ng-template #noServer>
+  <p>no server created.</p>
+</ng-template>
+<!-- <p [innerText]="allowNewServer"></p> -->
+
+<app-server *ngFor="let server of servers"></app-server>
+
+<button class="btn btn-primary" (click)="onToggleDetails($event)">
+  Display Secret Details
+</button>
+<p *ngIf="showSecret">{{ showSecret }} secret data: 1234</p>
+<div
+  *ngFor="let logItem of log; let i = index"
+  [ngStyle]="{
+    backgroundColor: i > 4 ? 'blue' : 'transparent'
+  }"
+  [ngClass]="{ 'white-text': i > 4 }"
+>
+  {{ i }} {{ logItem }}
+</div>
